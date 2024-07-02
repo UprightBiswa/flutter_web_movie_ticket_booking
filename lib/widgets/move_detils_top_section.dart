@@ -5,10 +5,12 @@ import '../models/movie.dart';
 
 class MovieDetailsTopSection extends StatelessWidget {
   final Movie movie;
+  final VoidCallback onPressed;
 
   const MovieDetailsTopSection({
     super.key,
     required this.movie,
+    required this.onPressed,
   });
 
   @override
@@ -78,7 +80,7 @@ class MovieDetailsTopSection extends StatelessWidget {
                           ),
                           const Spacer(),
                           CustomButton(
-                            onPressed: () {},
+                            onPressed: onPressed,
                             borderRadius: 8,
                             height: isMobile ? 50 : 60,
                             width: isMobile ? 200 : 300,

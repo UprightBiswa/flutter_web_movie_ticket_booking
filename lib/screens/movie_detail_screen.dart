@@ -6,16 +6,47 @@ import '../widgets/footter.dart';
 import '../widgets/move_detils_top_section.dart';
 import '../widgets/movie_details_widget.dart';
 import '../widgets/navbar.dart';
+import '../widgets/number_selection_dialog.dart';
 
-class MovieDetailScreen extends StatelessWidget {
+class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
 
   const MovieDetailScreen({super.key, required this.movie});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController peopleController = TextEditingController();
+  State<MovieDetailScreen> createState() => _MovieDetailScreenState();
+}
 
+class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  int? selectedNumber;
+
+  void _showNumberSelectionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return NumberSelectionDialog(
+          onSelected: (number) {
+            setState(() {
+              selectedNumber = number;
+            });
+          },
+          onConfirmPressed: () {
+            Navigator.pushNamed(
+              context,
+              '/seat-selection',
+              arguments: SeatSelectionScreenArguments(
+                seatLayout: widget.movie.seatLayout,
+                totalPeople: selectedNumber!,
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       drawer: MediaQuery.of(context).size.width < 800
           ? Drawer(
@@ -57,43 +88,11 @@ class MovieDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MovieDetailsTopSection(
-                          movie: movie,
+                          movie: widget.movie,
+                          onPressed: _showNumberSelectionDialog,
                         ),
                         const SizedBox(height: 30),
                         const MovieDetailsWidget(),
-                        const SizedBox(height: 30),
-                        const Text(
-                          'Total People:',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        TextField(
-                          controller: peopleController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter number of people',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            int totalPeople =
-                                int.tryParse(peopleController.text) ?? 1;
-                            Navigator.pushNamed(
-                              context,
-                              '/seat-selection',
-                              arguments: SeatSelectionScreenArguments(
-                                seatLayout: movie.seatLayout,
-                                totalPeople: totalPeople,
-                              ),
-                            );
-                          },
-                          child: const Text('Book Tickets'),
-                        ),
                         const SizedBox(height: 30),
                         Footer(),
                       ],
