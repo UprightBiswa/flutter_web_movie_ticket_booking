@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:biswajit_profile_web/themes/app_color.dart';
 import 'package:flutter/material.dart';
+
 class BackgroundShapes extends StatefulWidget {
   const BackgroundShapes({
     super.key,
@@ -85,9 +87,10 @@ class BackgroundPainter extends CustomPainter {
       BlurStyle.normal,
       30,
     );
-    drawShape1(canvas, size, paint, Colors.orange);
-    drawShape2(canvas, size, paint, Colors.purple);
-    drawShape3(canvas, size, paint, Colors.blue);
+
+    drawShape1(canvas, size, paint, AppColor.kBorderColor);
+    drawShape2(canvas, size, paint, AppColor.kPrimary);
+    drawShape3(canvas, size, paint, AppColor.kBlueColor);
   }
 
   @override

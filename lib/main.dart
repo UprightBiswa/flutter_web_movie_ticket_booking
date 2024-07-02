@@ -28,15 +28,15 @@ class MovieApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          '/': (context) => GetStartedPage(),
-          '/home': (context) => MovieListScreen(),
+          '/': (context) => const GetStartedPage(),
+          '/home': (context) => const MovieListScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/movie-detail') {
             final args = settings.arguments as Movie?;
             if (args == null) {
               // If the Movie data is missing, navigate to the home page
-              return MaterialPageRoute(builder: (context) => MovieListScreen());
+              return MaterialPageRoute(builder: (context) => const MovieListScreen());
             } else {
               return MaterialPageRoute(
                   builder: (context) => MovieDetailScreen(movie: args));
