@@ -187,15 +187,310 @@ class SeatSelectionScreen extends StatefulWidget {
 class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   List<SeatSelection> selectedSeats = [];
 
+  // void toggleSeat(
+  //     int sectionIndex, int rowIndex, int seatIndex, int seatNumber) {
+  //   setState(() {
+  //     SeatSelection seatSelection =
+  //         SeatSelection(sectionIndex, rowIndex, seatIndex, seatNumber);
+  //     if (selectedSeats.contains(seatSelection)) {
+  //       selectedSeats.remove(seatSelection);
+  //     } else if (selectedSeats.length < widget.totalPeople) {
+  //       selectedSeats.add(seatSelection);
+  //     }
+  //   });
+  // }
+
+  // void toggleSeat(
+  //     int sectionIndex, int rowIndex, int seatIndex, int seatNumber) {
+  //   setState(() {
+  //     // Deselect the seat if already selected
+  //     SeatSelection seatSelection =
+  //         SeatSelection(sectionIndex, rowIndex, seatIndex, seatNumber);
+  //     if (selectedSeats.contains(seatSelection)) {
+  //       selectedSeats.remove(seatSelection);
+  //     } else if (selectedSeats.length < widget.totalPeople) {
+  //       List<SeatSelection> newSelections = [];
+
+  //       // Check the seats to the right of the selected seat
+  //       for (int i = seatIndex;
+  //           i <
+  //               widget.seatLayout.sections[sectionIndex].seatPositions[rowIndex]
+  //                   .length;
+  //           i++) {
+  //         String seat = widget
+  //             .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //         if (seat == '') break; // Stop if there's an empty space
+  //         int seatNumber = int.parse(seat);
+  //         if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //             .contains(seatNumber)) break; // Stop if the seat is occupied
+  //         newSelections
+  //             .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //         if (newSelections.length == widget.totalPeople) break;
+  //       }
+
+  //       // If not enough seats, check the seats to the left of the selected seat
+  //       if (newSelections.length < widget.totalPeople) {
+  //         newSelections.clear();
+  //         for (int i = seatIndex; i >= 0; i--) {
+  //           String seat = widget
+  //               .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //           if (seat == '') break; // Stop if there's an empty space
+  //           int seatNumber = int.parse(seat);
+  //           if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //               .contains(seatNumber)) break; // Stop if the seat is occupied
+  //           newSelections
+  //               .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //           if (newSelections.length == widget.totalPeople) break;
+  //         }
+  //       }
+
+  //       // Add the new selections to the selected seats
+  //       for (SeatSelection selection in newSelections) {
+  //         if (!selectedSeats.contains(selection) &&
+  //             selectedSeats.length < widget.totalPeople) {
+  //           selectedSeats.add(selection);
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
+  // void toggleSeat(
+  //     int sectionIndex, int rowIndex, int seatIndex, int seatNumber) {
+  //   setState(() {
+  //     SeatSelection seatSelection =
+  //         SeatSelection(sectionIndex, rowIndex, seatIndex, seatNumber);
+
+  //     if (selectedSeats.contains(seatSelection)) {
+  //       selectedSeats.remove(seatSelection);
+  //     } else if (selectedSeats.length < widget.totalPeople) {
+  //       // Check if there are enough seats to the right
+  //       List<SeatSelection> newSelections = [];
+  //       for (int i = seatIndex;
+  //           i <
+  //               widget.seatLayout.sections[sectionIndex].seatPositions[rowIndex]
+  //                   .length;
+  //           i++) {
+  //         String seat = widget
+  //             .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //         if (seat == '') break; // Stop if there's an empty space
+  //         int seatNumber = int.parse(seat);
+  //         if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //             .contains(seatNumber)) break; // Stop if the seat is occupied
+  //         newSelections
+  //             .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //         if (newSelections.length == widget.totalPeople) break;
+  //       }
+
+  //       // If not enough seats to the right, check the seats to the left
+  //       if (newSelections.length < widget.totalPeople) {
+  //         newSelections.clear();
+  //         for (int i = seatIndex; i >= 0; i--) {
+  //           String seat = widget
+  //               .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //           if (seat == '') break; // Stop if there's an empty space
+  //           int seatNumber = int.parse(seat);
+  //           if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //               .contains(seatNumber)) break; // Stop if the seat is occupied
+  //           newSelections
+  //               .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //           if (newSelections.length == widget.totalPeople) break;
+  //         }
+  //       }
+
+  //       // Add the new selections to the selected seats
+  //       for (SeatSelection selection in newSelections) {
+  //         if (!selectedSeats.contains(selection) &&
+  //             selectedSeats.length < widget.totalPeople) {
+  //           selectedSeats.add(selection);
+  //         }
+  //       }
+  //     } else {
+  //       // Clear the selection and start a new selection
+  //       selectedSeats.clear();
+  //       List<SeatSelection> newSelections = [];
+
+  //       // Check the seats to the right of the selected seat
+  //       for (int i = seatIndex;
+  //           i <
+  //               widget.seatLayout.sections[sectionIndex].seatPositions[rowIndex]
+  //                   .length;
+  //           i++) {
+  //         String seat = widget
+  //             .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //         if (seat == '') break; // Stop if there's an empty space
+  //         int seatNumber = int.parse(seat);
+  //         if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //             .contains(seatNumber)) break; // Stop if the seat is occupied
+  //         newSelections
+  //             .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //         if (newSelections.length == widget.totalPeople) break;
+  //       }
+
+  //       // If not enough seats, check the seats to the left of the selected seat
+  //       if (newSelections.length < widget.totalPeople) {
+  //         newSelections.clear();
+  //         for (int i = seatIndex; i >= 0; i--) {
+  //           String seat = widget
+  //               .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //           if (seat == '') break; // Stop if there's an empty space
+  //           int seatNumber = int.parse(seat);
+  //           if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //               .contains(seatNumber)) break; // Stop if the seat is occupied
+  //           newSelections
+  //               .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //           if (newSelections.length == widget.totalPeople) break;
+  //         }
+  //       }
+
+  //       // Add the new selections to the selected seats
+  //       for (SeatSelection selection in newSelections) {
+  //         if (!selectedSeats.contains(selection) &&
+  //             selectedSeats.length < widget.totalPeople) {
+  //           selectedSeats.add(selection);
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
+  // void toggleSeat(
+  //     int sectionIndex, int rowIndex, int seatIndex, int seatNumber) {
+  //   setState(() {
+  //     SeatSelection seatSelection =
+  //         SeatSelection(sectionIndex, rowIndex, seatIndex, seatNumber);
+
+  //     if (selectedSeats.contains(seatSelection)) {
+  //       selectedSeats.remove(seatSelection);
+  //     } else {
+  //       if (selectedSeats.length == widget.totalPeople) {
+  //         // Clear old selections if the user toggles a new index when all required seats are already selected
+  //         selectedSeats.clear();
+  //       }
+
+  //       // Check the seats to the right of the selected seat
+  //       List<SeatSelection> newSelections = [];
+  //       for (int i = seatIndex;
+  //           i <
+  //               widget.seatLayout.sections[sectionIndex].seatPositions[rowIndex]
+  //                   .length;
+  //           i++) {
+  //         String seat = widget
+  //             .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //         if (seat == '') break; // Stop if there's an empty space
+  //         int seatNumber = int.parse(seat);
+  //         if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //             .contains(seatNumber)) break; // Stop if the seat is occupied
+  //         newSelections
+  //             .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //         if (newSelections.length == widget.totalPeople) break;
+  //       }
+
+  //       // If not enough seats, check the seats to the left of the selected seat
+  //       if (newSelections.length < widget.totalPeople) {
+  //         newSelections.clear();
+  //         for (int i = seatIndex; i >= 0; i--) {
+  //           String seat = widget
+  //               .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+  //           if (seat == '') break; // Stop if there's an empty space
+  //           int seatNumber = int.parse(seat);
+  //           if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+  //               .contains(seatNumber)) break; // Stop if the seat is occupied
+  //           newSelections
+  //               .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+  //           if (newSelections.length == widget.totalPeople) break;
+  //         }
+  //       }
+
+  //       // Add the new selections to the selected seats
+  //       for (SeatSelection selection in newSelections) {
+  //         if (!selectedSeats.contains(selection) &&
+  //             selectedSeats.length < widget.totalPeople) {
+  //           selectedSeats.add(selection);
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
   void toggleSeat(
       int sectionIndex, int rowIndex, int seatIndex, int seatNumber) {
     setState(() {
       SeatSelection seatSelection =
           SeatSelection(sectionIndex, rowIndex, seatIndex, seatNumber);
+
       if (selectedSeats.contains(seatSelection)) {
         selectedSeats.remove(seatSelection);
-      } else if (selectedSeats.length < widget.totalPeople) {
-        selectedSeats.add(seatSelection);
+      } else {
+        // If total selected seats already match the total people, clear old selections
+        if (selectedSeats.length >= widget.totalPeople) {
+          selectedSeats.clear();
+        }
+
+        // Check the seats to the right of the selected seat
+        List<SeatSelection> newSelections = [];
+        for (int i = seatIndex;
+            i <
+                widget.seatLayout.sections[sectionIndex].seatPositions[rowIndex]
+                    .length;
+            i++) {
+          String seat = widget
+              .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+          if (seat == '') break; // Stop if there's an empty space
+          int seatNumber = int.parse(seat);
+          if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+              .contains(seatNumber)) break; // Stop if the seat is occupied
+          newSelections
+              .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+          if (newSelections.length == widget.totalPeople) break;
+        }
+
+        // If not enough seats to the right, check the seats to the left of the selected seat
+        if (newSelections.length < widget.totalPeople) {
+          for (int i = seatIndex - 1; i >= 0; i--) {
+            String seat = widget
+                .seatLayout.sections[sectionIndex].seatPositions[rowIndex][i];
+            if (seat == '') break; // Stop if there's an empty space
+            int seatNumber = int.parse(seat);
+            if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+                .contains(seatNumber)) break; // Stop if the seat is occupied
+            newSelections
+                .add(SeatSelection(sectionIndex, rowIndex, i, seatNumber));
+            if (newSelections.length == widget.totalPeople) break;
+          }
+        }
+
+        // If still not enough seats, find remaining seats from other rows
+        if (newSelections.length < widget.totalPeople) {
+          for (int r = 0;
+              r < widget.seatLayout.sections[sectionIndex].seatPositions.length;
+              r++) {
+            for (int i = 0;
+                i <
+                    widget.seatLayout.sections[sectionIndex].seatPositions[r]
+                        .length;
+                i++) {
+              String seat =
+                  widget.seatLayout.sections[sectionIndex].seatPositions[r][i];
+              if (seat == '') break; // Stop if there's an empty space
+              int seatNumber = int.parse(seat);
+              if (widget.seatLayout.sections[sectionIndex].occupiedSeats
+                  .contains(seatNumber)) continue; // Skip occupied seats
+              newSelections.add(SeatSelection(sectionIndex, r, i, seatNumber));
+              if (newSelections.length == widget.totalPeople) break;
+            }
+            if (newSelections.length == widget.totalPeople) break;
+          }
+        }
+
+        // Add the new selections to the selected seats
+        selectedSeats.clear(); // Clear the old selections
+        for (SeatSelection selection in newSelections) {
+          if (!selectedSeats.contains(selection) &&
+              selectedSeats.length < widget.totalPeople) {
+            selectedSeats.add(selection);
+          }
+        }
       }
     });
   }
@@ -330,11 +625,34 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                                                     margin:
                                                         const EdgeInsets.all(
                                                             4.0),
-                                                    color: isOccupied
-                                                        ? Colors.red
-                                                        : isSelected
-                                                            ? Colors.green
-                                                            : Colors.blue,
+                                                    decoration: BoxDecoration(
+                                                      color: isOccupied
+                                                          ? Colors.red
+                                                          : isSelected
+                                                              ? Colors.green
+                                                              : Colors.blue,
+                                                      border: isSelected
+                                                          ? Border.all(
+                                                              color:
+                                                                  Colors.black,
+                                                              width: 2.0,
+                                                            )
+                                                          : null,
+                                                      boxShadow: isSelected
+                                                          ? [
+                                                              BoxShadow(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                spreadRadius: 1,
+                                                                blurRadius: 5,
+                                                                offset: Offset(
+                                                                    0, 3),
+                                                              ),
+                                                            ]
+                                                          : [],
+                                                    ),
                                                     child: Center(
                                                         child: Text(seat)),
                                                   ),
@@ -366,6 +684,14 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Total Price: \$${calculateTotalPrice().toStringAsFixed(2)}',
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
             Container(
               margin: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -384,7 +710,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                         );
                       }
                     : null,
-                child: const Text('Continue'),
+                child: const Text('Proceed to Billing'),
               ),
             ),
           ],
